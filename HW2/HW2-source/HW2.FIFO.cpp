@@ -1,3 +1,5 @@
+// 표준 라이브러리가 아니라서 따로 추가해줘야 한다.
+// VSCode 설정에서 c_cpp include path에 bits/stdc++.h 경로 추가
 #include<bits/stdc++.h>
 using namespace std;
 
