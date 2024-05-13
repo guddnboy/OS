@@ -34,10 +34,10 @@ int findpos(int table_frame[], int nf, int pages[], int curr, int np){
 
 	int pos[nf] = {0};
 
-	// 뭐하는 과정이지?
 	for(int i=0; i<nf; i++){
+		// -1e9는 매우 작은 음수를 의미한다. i번쨰의 pos 값을 매우 작은 음수로 초기화
 		pos[i] = -1e9;
-		// 현재 인덱스 - 1부터 0까지 뒤로 탐색
+		// 현재 (인덱스 - 1)부터 0 까지 내림차순 검색
 		for(int j=curr-1; j>=0; j--){
 			// 요청 페이지와 테이블의 페이지가 같으면 pos값을 j로 변경 후 정지
 			if(pages[j] == table_frame[i]){
@@ -48,6 +48,7 @@ int findpos(int table_frame[], int nf, int pages[], int curr, int np){
 	}
 
 	int min1 = 1000000, retPos = -1;
+
 	// pos 배열에서 최소값과 최소값을 가진 인덱스 찾기
 	for(int i=0; i<nf; i++){
 		if(min1 > pos[i]){
@@ -55,6 +56,7 @@ int findpos(int table_frame[], int nf, int pages[], int curr, int np){
 			retPos = i;
 		}
 	}
+	// 최소값을 가진 인덱스 반환
 	return retPos;
 }
 
