@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 
+// 프레임의 수 만큼 반복 후 페이지가 테이블 프레임과 같으면 1 아니면 0 반환
 int present(int table_frame[], int nf, int page){
 	for(int i=0; i<nf; i++){
 		if(page == table_frame[i])
@@ -8,6 +9,7 @@ int present(int table_frame[], int nf, int page){
 	return 0;
 }
 
+// 테이블 프레임 내용 출력 비어있으면 '--', 아니면 값 출력
 void printtable(int table_frame[], int nf){
 	for(int i=0; i<nf; i++){
 		if(table_frame[i] == -1){
@@ -23,6 +25,7 @@ void printtable(int table_frame[], int nf){
 
 int findpos(int table_frame[],int nf,int pages[],int curr,int np){
     int i,j;
+    // 테이블의 값이 비어있으면 해당 인덱스 반환
     for(i=0;i<nf;i++){
         if(table_frame[i] == -1){
             return i;
