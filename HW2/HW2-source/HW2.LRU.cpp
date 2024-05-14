@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 // 프레임의 수 만큼 반복 후 페이지가 테이블 프레임과 같으면 1 아니면 0 반환
 int present(int table_frame[], int nf, int page){
@@ -35,7 +35,7 @@ int findpos(int table_frame[], int nf, int pages[], int curr, int np){
 	int pos[nf] = {0};
 
 	for(int i=0; i<nf; i++){
-		// -1e9는 매우 작은 음수를 의미한다. i번쨰의 pos 값을 매우 작은 음수로 초기화
+		// -1e9는 -10^9를 의미한다. 매우 작은 음수로 초기화
 		pos[i] = -1e9;
 		// 현재 (인덱스 - 1)부터 0 까지 내림차순 검색
 		for(int j=curr-1; j>=0; j--){
