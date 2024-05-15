@@ -58,12 +58,13 @@ int main(){
         
         //  요청 페이지와 테이블의 페이지가 일치하면 1을 반환, 일치하는 상황(!1)은 거짓이므로 패스
         if(!present(table_frame,nf,pages[i])){
-            // 마지막으로 입력한 인덱스에 요청한 페이지 추가 
             // 테이블에 있는 데이터 한 칸씩 앞으로 땡기기
-            for(int i = 1; i < nf; i++){
-                table_frame[i - 1] = table_frame[i];
+            for(int j = 1; j < nf; j++){
+                table_frame[j - 1] = table_frame[j];
             }
+            // 마지막으로 입력한 인덱스에 요청한 페이지 추가 
             table_frame[nf - 1] = pages[i];
+
             // 현재 인덱스+1 하고 프레임의 수 만큼 나눈 나머지 (인덱스를 순환시키기 위해서)
             printtable(table_frame,nf);
             printf("page fault\n");
@@ -72,6 +73,8 @@ int main(){
             count1++;
             continue;
         }
+
+
         printtable(table_frame,nf);
 		printf("\n");
     }
