@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 // 프레임의 수 만큼 반복 후 페이지가 테이블 프레임과 같으면 1 아니면 0 반환
-int present(int table_frame[], int nf, int page){
+int present(char table_frame[], int nf, char page){
 	for(int i=0; i<nf; i++){
 		if(page == table_frame[i])
 			return 1;
@@ -10,13 +10,13 @@ int present(int table_frame[], int nf, int page){
 }
 
 // 테이블 프레임 내용 출력 비어있으면 '--', 아니면 값 출력
-void printtable(int table_frame[], int nf){
+void printtable(char table_frame[], int nf){
 	for(int i=0; i<nf; i++){
-		if(table_frame[i] == -1){
+		if(table_frame[i] == ' '){
 			printf("-- ");
 		}
 		else{
-			printf("%2d ", table_frame[i]);
+			printf("%c  ", table_frame[i]);
 		}
 	}
 	printf("||");
@@ -24,15 +24,15 @@ void printtable(int table_frame[], int nf){
 
 
 // 
-int findpos(int table_frame[], int nf, int pages[], int curr, int np){
+int findpos(char table_frame[], int nf, char pages[], int curr, int np){
 	// 테이블 중 비어있는 값의 인덱스를 반환
 	for(int i=0; i<nf; i++){
-		if(table_frame[i] == -1){
+		if(table_frame[i] == ' '){
 			return i;
 			}
 		}
 
-	int pos[nf] = {0};
+	int pos[nf];
 
 	for(int i=0; i<nf; i++){
 		// -1e9는 -10^9를 의미한다. 매우 작은 음수로 초기화
@@ -68,9 +68,9 @@ int main(){
     printf("enter number of frames\n");
     scanf("%d",&nf);
 	// 프레임이 있는 테이블 값 초기화
-    int table_frame[nf];
+	char table_frame[nf];
     for(i=0;i<nf;i++){
-        table_frame[i]=-1;
+        table_frame[i]= ' ';
     }
 
 	// 페이지 요청 수 입력받기
@@ -78,17 +78,17 @@ int main(){
     scanf("%d",&n);
     
 	// 요청 페이지 입력 받기
-	int pages[n];
+	char pages[n];
     printf("enter pages\n");
     for(i=0;i<n;i++){
-        scanf("%d",&pages[i]);
+        scanf(" %c",&pages[i]);
     }
 
     int count1=0;
     printf("position of frame table after each request\n");
 
     for(i=0;i<n;i++){
-        printf("page table after request from %2d || ",pages[i]);
+        printf("page table after request from %c || ",pages[i]);
 		
 		//  요청 페이지와 테이블의 페이지가 일치하면 1을 반환, 일치하는 상황(!1)은 거짓이므로 패스
         if(!present(table_frame,nf,pages[i])){

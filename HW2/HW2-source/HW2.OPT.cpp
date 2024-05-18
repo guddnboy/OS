@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 
 // 프레임의 수 만큼 반복 후 페이지가 테이블 프레임과 같으면 1 아니면 0 반환
-int present(int table_frame[], int nf, int page){
+int present(char table_frame[], int nf, char page){
 	for(int i=0; i<nf; i++){
 		if(page == table_frame[i])
 			return 1;
@@ -10,29 +10,29 @@ int present(int table_frame[], int nf, int page){
 }
 
 // 테이블 프레임 내용 출력 비어있으면 '--', 아니면 값 출력
-void printtable(int table_frame[], int nf){
+void printtable(char table_frame[], int nf){
 	for(int i=0; i<nf; i++){
-		if(table_frame[i] == -1){
+		if(table_frame[i] == ' '){
 			printf("-- ");
         }
 		else{
-			printf("%2d ", table_frame[i]);
+			printf("%c  ", table_frame[i]);
         }
 	}
 	printf("||");
 }
 
 
-int findpos(int table_frame[],int nf,int pages[],int curr,int np){
+int findpos(char table_frame[],int nf,char pages[],int curr,int np){
     int i,j;
     // 테이블의 값이 비어있으면 해당 인덱스 반환
     for(i=0;i<nf;i++){
-        if(table_frame[i] == -1){
+        if(table_frame[i] == ' '){
             return i;
         }
     }
 
-    int pos[nf]={0};
+    int pos[nf];
 
     for(i=0;i<nf;i++){
         pos[i]=1e9;
@@ -62,23 +62,23 @@ int main(){
 
     printf("enter number of frames\n");
     scanf("%d",&nf);
-    int table_frame[nf];
+    char table_frame[nf];
     for(i=0;i<nf;i++){
-        table_frame[i]=-1;
+        table_frame[i]=' ';
     }
 
     printf("enter total number of page requests\n");
     scanf("%d",&n);
-    int pages[n];
+    char pages[n];
     printf("enter pages\n");
     for(i=0;i<n;i++){
-        scanf("%d",&pages[i]);
+        scanf(" %c",&pages[i]);
     }
 
     int count1=0;
     printf("position of frame table after each request\n");
     for(i=0;i<n;i++){
-        printf("page table after request from %2d || ",pages[i]);
+        printf("page table after request from %c || ",pages[i]);
         if(!present(table_frame,nf,pages[i])){
              int pos = findpos(table_frame,nf,pages,i,n);
              table_frame[pos]=pages[i];
