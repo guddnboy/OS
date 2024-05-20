@@ -1,72 +1,70 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int present(char a[],int nf,char page,int rf_bit[]){
-    for(int i=0;i<nf;i++){
-        if(a[i]==page){
-          rf_bit[i]=1;
-          return 1;
+bool present(char table_frame[], int rf_bit[], int nf, char page) {
+    for (int i = 0; i < nf; ++i) {
+        if (table_frame[i] == page) {
+            rf_bit[i] = 1; 
+            return true;
         }
     }
-    return 0;
+    return false;
 }
 
-void printtable(char table_frame[], int nf){
-	for(int i=0; i<nf; i++){
-		if(table_frame[i] == ' '){
-			printf("-- ");
+void printtable(char table_frame[], int nf) {
+    for (int i = 0; i < nf; ++i) {
+        if (table_frame[i] == ' ') {
+            printf("-- ");
+        } else {
+            printf("%c ", table_frame[i]);
         }
-		else{
-			printf("%c ", table_frame[i]);
-        }
-	}
-	printf("||");
+    }
+    printf("||");
 }
 
-
-int main(){
+int main() {
     int nf;
-    cout<<"enter number of frames"<<endl;
-    cin>>nf;
-    char a[nf];
+    cout << "Enter number of frames" << endl;
+    cin >> nf;
+    char table_frame[nf];
     int rf_bit[nf];
-    for(int i=0;i<nf;i++){
-        a[i]= ' ';
-        rf_bit[i]=0;
+    for (int i = 0; i < nf; ++i) {
+        table_frame[i] = ' ';
+        rf_bit[i] = 0;
     }
 
     int np;
-    cout<<"enter number of pages"<<endl;
-    cin>>np;
-    char b[np];
-    cout<<"enter page requests"<<endl;
-    for(int i=0;i<np;i++){
-        cin>>b[i];
+    cout << "Enter number of pages" << endl;
+    cin >> np;
+    char pages[np];
+    cout << "Enter page requests" << endl;
+    for (int i = 0; i < np; ++i) {
+        cin >> pages[i];
     }
-    int pos=0,count1=0;
 
-    for(int i=0;i<np;i++){
-        printf("page table after request from %c || ",b[i]);
-        // 요청 페이지와 일치하면 rf_bit[] 값 1로 수정하고 1 반환, 아니면 수정없이 그냥 0 반환
-        if(!present(a,nf,b[i],rf_bit)){
-            //int pos=findpos(a,nf,b,i,np);
-            pos=(pos+1)%nf;
-            // 요청 페이지의 다음 인덱스 값부터 rf_bit[]가 1인 경우 0으로 변경하고 pos에 값 1 추가(순환)
-            while(rf_bit[pos]==1){
-                rf_bit[pos]=0;
-                pos=(pos+1)%nf;
+    int pos = 0, count = 0;
+    printf("Position of frame table after each request\n");
+
+    for (int i = 0; i < np; ++i) {
+        printf("Page table after request from %c || ", pages[i]);
+        if (!present(table_frame, rf_bit, nf, pages[i])) {
+            while (rf_bit[pos] == 1) {
+                rf_bit[pos] = 0;  
+                pos = (pos + 1) % nf; 
             }
-
-            a[pos]=b[i];
-            printtable(a,nf);
-            printf("page fault\n");
-            count1++;
-            continue;
+            table_frame[pos] = pages[i];
+            rf_bit[pos] = 1;  
+            pos = (pos + 1) % nf;  
+            printtable(table_frame, nf);
+            printf(" page fault\n");
+            count++;
+        } else {
+            printtable(table_frame, nf);
+            printf("\n");
         }
-
-        printtable(a,nf);
-		printf("\n");
     }
 
-     printf("\nNumber of page faults : %d\n\n", count1);
+    printf("\nNumber of page faults: %d\n\n", count);
+
+    return 0;
 }

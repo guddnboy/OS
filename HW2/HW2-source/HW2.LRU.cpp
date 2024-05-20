@@ -57,7 +57,7 @@ int main() {
         scanf(" %c", &pages[i]);
     }
 
-    int count1 = 0;
+    int count = 0;
     printf("Position of frame table after each request\n");
 
     for (i = 0; i < n; i++) {
@@ -69,13 +69,13 @@ int main() {
             cnt[pos] = i + 1;
             printtable(table_frame, nf);
             printf(" page fault\n");
-            count1++;
+            count++;
         } else {
             printtable(table_frame, nf);
             printf("\n");
         }
     }
-    printf("\nNumber of page faults: %d\n\n", count1);
+    printf("\nNumber of page faults: %d\n\n", count);
 
     return 0;
 }
