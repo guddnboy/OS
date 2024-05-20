@@ -47,9 +47,11 @@ int main(){
 
     for(int i=0;i<np;i++){
         printf("page table after request from %c || ",b[i]);
+        // 요청 페이지와 일치하면 rf_bit[] 값 1로 수정하고 1 반환, 아니면 수정없이 그냥 0 반환
         if(!present(a,nf,b[i],rf_bit)){
             //int pos=findpos(a,nf,b,i,np);
             pos=(pos+1)%nf;
+            // 요청 페이지의 다음 인덱스 값부터 rf_bit[]가 1인 경우 0으로 변경하고 pos에 값 1 추가(순환)
             while(rf_bit[pos]==1){
                 rf_bit[pos]=0;
                 pos=(pos+1)%nf;

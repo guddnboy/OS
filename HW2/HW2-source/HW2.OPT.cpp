@@ -23,24 +23,25 @@ void printtable(char table_frame[], int nf){
 }
 
 
-int findpos(char table_frame[],int nf,char pages[],int curr,int np){
+int findpos(char table_frame[],int nf,char pages[],int curr,int n){
     int i,j;
     // 테이블의 값이 비어있으면 해당 인덱스 반환
-    for(i=0;i<np;i++){
+    for(i=0;i<nf;i++){
         if(table_frame[i] == ' '){
             return i;
         }
     }
 
     int pos[nf];
-
 // 앞으로의 요청들 중에서 다시 호출되기까지의 시간이 긴 요청 찾기
     for(i=0;i<nf;i++){
-        pos[i]=1e9;
-        for(j=curr+1;j<nf;j++){
-            if(pages[j]==table_frame[i]){
+        for(j = curr + 1; j < n; j++){
+            if(pages[j] == table_frame[i]){
                 pos[i]=j;
                 break;
+            }
+            else{
+                pos[i] = 1e9;
             }
         }
     }
@@ -90,6 +91,8 @@ int main(){
              count1++;
              continue;
         }
+
+
         printtable(table_frame,nf);
 		printf("\n");
 
