@@ -1,110 +1,81 @@
 #include <bits/stdc++.h>
-
-// 프레임의 수 만큼 반복 후 페이지가 테이블 프레임과 같으면 1 아니면 0 반환
-int present(char table_frame[], int nf, char page){
-	for(int i=0; i<nf; i++){
-		if(page == table_frame[i])
-			return 1;
-	}
-	return 0;
-}
-
-// 테이블 프레임 내용 출력 비어있으면 '--', 아니면 값 출력
-void printtable(char table_frame[], int nf){
-	for(int i=0; i<nf; i++){
-		if(table_frame[i] == ' '){
-			printf("-- ");
-		}
-		else{
-			printf("%c  ", table_frame[i]);
-		}
-	}
-	printf("||");
-}
+using namespace std;
 
 
-// 
-int findpos(char table_frame[], int nf, char pages[], int curr, int np){
-	// 테이블 중 비어있는 값의 인덱스를 반환
-	for(int i=0; i<nf; i++){
-		if(table_frame[i] == ' '){
-			return i;
-			}
-		}
-
-	int pos[nf];
-
-	for(int i=0; i<nf; i++){
-		// -1e9는 -10^9를 의미한다. 매우 작은 음수로 초기화
-		pos[i] = -1e9;
-		// 현재 (인덱스 - 1)부터 0 까지 내림차순 검색
-		for(int j=curr-1; j>=0; j--){
-			// 요청 페이지와 테이블의 페이지가 같으면 pos값을 j로 변경 후 정지
-			if(pages[j] == table_frame[i]){
-				pos[i] = j;
-				break;
-			}
-		}
-	}
-
-	int min1 = 1000000, retPos = -1;
-
-	// pos 배열에서 최소값과 최소값을 가진 인덱스 찾기
-	for(int i=0; i<nf; i++){
-		if(min1 > pos[i]){
-			min1 = pos[i];
-			retPos = i;
-		}
-	}
-	// 최소값을 가진 인덱스 반환
-	return retPos;
-}
-
-int main(){
-    //nf-number of frames
-    int n,nf,i,pos=0;
-
-	// 프레임의 수 입력받기
-    printf("enter number of frames\n");
-    scanf("%d",&nf);
-	// 프레임이 있는 테이블 값 초기화
-	char table_frame[nf];
-    for(i=0;i<nf;i++){
-        table_frame[i]= ' ';
-    }
-
-	// 페이지 요청 수 입력받기
-    printf("enter total number of page requests\n");
-    scanf("%d",&n);
-    
-	// 요청 페이지 입력 받기
-	char pages[n];
-    printf("enter pages\n");
-    for(i=0;i<n;i++){
-        scanf(" %c",&pages[i]);
-    }
-
-    int count1=0;
-    printf("position of frame table after each request\n");
-
-    for(i=0;i<n;i++){
-        printf("page table after request from %c || ",pages[i]);
-		
-		//  요청 페이지와 테이블의 페이지가 일치하면 1을 반환, 일치하는 상황(!1)은 거짓이므로 패스
-        if(!present(table_frame,nf,pages[i])){
-
-			// pos값은 
-            int pos = findpos(table_frame,nf,pages,i,n);
-            table_frame[pos]=pages[i];
-
-            printtable(table_frame,nf);
-        	printf("page fault\n");
-            count1++;
-            continue;
+int present(char table_frame[], int nf, char page, int cnt[], int time) {
+    for (int i = 0; i < nf; i++) {
+        if (page == table_frame[i]) {
+            cnt[i] = time;
+            return 1;
         }
-        printtable(table_frame,nf);
-		printf("\n");
-
     }
-    printf("\nNumber of page faults : %d\n\n", count1);
+    return 0;
+}
+
+void printtable(char table_frame[], int nf) {
+    for (int i = 0; i < nf; i++) {
+        if (table_frame[i] == ' ') {
+            printf("-- ");
+        } else {
+            printf("%c  ", table_frame[i]);
+        }
+    }
+    printf("||");
+}
+
+int findpos(int cnt[], int nf) {
+    int min1 = INT_MAX;
+    int retPos = -1;
+    for (int i = 0; i < nf; i++) {
+        if (cnt[i] < min1) {
+            min1 = cnt[i];
+            retPos = i;
+        }
+    }
+    return retPos;
+}
+
+int main() {
+    int n, nf, i;
+
+    printf("Enter number of frames\n");
+    scanf("%d", &nf);
+
+    char table_frame[nf];
+    int cnt[nf];
+    for (i = 0; i < nf; i++) {
+        table_frame[i] = ' ';
+        cnt[i] = 0;
+    }
+
+    printf("Enter total number of page requests\n");
+    scanf("%d", &n);
+
+    char pages[n];
+    printf("Enter pages\n");
+    for (i = 0; i < n; i++) {
+        scanf(" %c", &pages[i]);
+    }
+
+    int count1 = 0;
+    printf("Position of frame table after each request\n");
+
+    for (i = 0; i < n; i++) {
+        printf("Page table after request from %c || ", pages[i]);
+
+        if (!present(table_frame, nf, pages[i], cnt, i + 1)) {
+            int pos = findpos(cnt, nf);
+            table_frame[pos] = pages[i];
+            cnt[pos] = i + 1;
+            printtable(table_frame, nf);
+            printf(" page fault\n");
+            count1++;
+        } else {
+            printtable(table_frame, nf);
+            printf("\n");
+        }
+    }
+    printf("\nNumber of page faults: %d\n\n", count1);
+
+    return 0;
 }
