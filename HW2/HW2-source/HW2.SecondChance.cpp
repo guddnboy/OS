@@ -1,14 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool present(char table_frame[], int rf_bit[], int nf, char page) {
+int present(char table_frame[], int rf_bit[], int nf, char page) {
     for (int i = 0; i < nf; ++i) {
         if (table_frame[i] == page) {
             rf_bit[i] = 1; 
-            return true;
+            return 1;
         }
     }
-    return false;
+    return 0;
 }
 
 void printtable(char table_frame[], int nf) {

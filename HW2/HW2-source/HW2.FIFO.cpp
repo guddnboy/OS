@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-using namespace std;
 
 int present(char table_frame[], int nf, char page) {
     for(int i = 0; i < nf; i++) {
