@@ -34,8 +34,6 @@ int main(){
     scanf("%d",&d[i]);
   }
 
-
-
   for(i=0;i<n-1;i++){    // sorting disk locations
     for(j=i+1;j<n;j++){
       if(d[i]>d[j]){
