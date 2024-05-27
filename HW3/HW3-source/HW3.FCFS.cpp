@@ -21,7 +21,7 @@ int main(){
    // scanf("%d",&head);
    // queue[0]=head;
 
-   for(j=0;j<=n-1;j++){
+   for(j=1;j<=n-1;j++){
       diff=abs(queue[j+1]-queue[j]);
       seek+=diff;
       printf("move is from %d to %d with seek %d\n",queue[j],queue[j+1],diff);
