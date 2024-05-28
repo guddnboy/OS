@@ -7,7 +7,7 @@ int find(int d[],int n,int disk){
       break;
       }
     }
-  return 0;
+  return n;
 }
 
 int main(){

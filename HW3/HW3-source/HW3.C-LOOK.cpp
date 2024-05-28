@@ -7,7 +7,7 @@ int find(int d[],int n,int disk){
       break;
     }
   }
-  return 0;
+  return n;
 }
 
 int main(){
@@ -49,78 +49,33 @@ int main(){
   for(i=0;i<n;i++){
     printf("%d ",d[i]);
   }
-
-  int prev_head;
-  printf("\nenter previous head position\n");
-  scanf("%d",&prev_head);
-
-  int c;
+  printf("\n");
   int sum=0;
 
-  if(prev_head>disk){
-    c=1;
-  }
-  else{
-    c=2;
-  }
-
 //go towards left
-  if(c==1){
-    int previous = find(d,n,disk);
-    previous = previous-1;
+  int previous = find(d,n,disk);
+  previous = previous-1;
+  sum+=abs(disk-d[previous]);
 
-   //printf("previous=%d\n",previous);
-    sum+=abs(disk-d[previous]);
+  for(i=previous;i>=0;i--){
+    printf("%d ->",d[i]);
 
-   //printf("sum=%d\n",sum);
-    printf("%d->",disk);
-
-    for(i=previous;i>=0;i--){
-      printf("%d ->",d[i]);
-
-      if(i!=0){
-        int dr=abs(d[i]-d[i-1]);
-        sum+=dr;
-       //printf("sum=%d\n",sum);
-      }
+    if(i!=0){
+      int dr=abs(d[i]-d[i-1]);
+      sum+=dr;
     }
-
-    for(i=n-1;i>=previous+1;i--){
-      printf("%d ->",d[i]);
-
-      if(i!=previous+1){
-        int dr=abs(d[i]-d[i-1]);
-        sum+=dr;
-   //     printf("sum=%d\n",sum);
-      }
+    else if(i == 0){
+      sum += d[n-1] - d[i]; 
     }
-    printf("\nmovement of total cylinders %d\n",sum);
   }
 
- //go towards right
-  else if(c==2){
-    int previous = find(d,n,disk);
-    printf("%d\n",previous);
+  for(i=n-1;i>=previous+1;i--){
+    printf("%d ->",d[i]);
 
-    sum+=abs(d[previous]-disk);
-
-    printf("%d->",disk);
-
-    for(i=previous;i<n;i++){
-      printf("%d ->",d[i]);
-      
-      if(i!=n-1){
-        sum+=abs(d[i+1]-d[i]);
-      }
+    if(i!=previous+1){
+      int dr=abs(d[i]-d[i-1]);
+      sum+=dr;
     }
-    for(i=0;i<=previous-1;i++){
-      printf("%d ->",d[i]);
-
-      if(i!=previous-1){
-        sum+=abs(d[i+1]-d[i]);
-      }
-    }
-    printf("\nmovement of total cylinders %d\n",sum);
   }
-  return 0;
+  printf("\nmovement of total cylinders %d\n",sum);
 }
